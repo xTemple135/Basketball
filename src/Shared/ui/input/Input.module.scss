@@ -1,0 +1,64 @@
+.input-ui {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: default;
+
+  &_label {
+    color: $Grey;
+    padding-bottom: $indent1;
+  }
+  &_block {
+    position: relative; 
+    input {
+      width: 100%;
+      height: 40px;
+      outline: none;
+      position: relative;
+      font-size: 14px;
+      line-height: 14px;
+      font-weight: 500;
+      color: $Dark-grey;
+      background-color: $Lightest-grey-second;
+      border: 0.5px solid transparent;
+      border-radius: 4px;
+      padding: 0 $indent2;
+      transition: 0.1s;
+      cursor: text;
+
+      &:hover:not(.disabled):not(:focus):not(:active) {
+        background-color: $Lightest-grey;
+      }
+
+      &.search {
+        background-color: white;
+        border-color: $Lightest-grey;
+      }
+      &.error {
+        border-color: $Lightest-red;
+      }
+      &.disabled {
+        pointer-events: none;
+        color: $Lightest-grey;
+      }
+      &:focus,
+      &:active {
+        background-color: $Lightest-grey-second;
+      }
+    }
+    &_icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  &_errorText {
+    color: $Lightest-red;
+    font-size: 13px;
+    margin-top: 2px;
+  }
+}

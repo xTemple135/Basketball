@@ -5,6 +5,7 @@ import App from './App/App';
 import reportWebVitals from './reportWebVitals';
 import '@/Shared/assets/fonts/avenir/stylesheet.css';
 
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

@@ -1,0 +1,11 @@
+.ui-link {
+  font-size: 14px;
+  line-height: 20px;
+  color: $Red;
+  transition: 0.1s;
+  font-weight: 500;
+}
+
+.disabled {
+  color: $lightest-grey;
+}

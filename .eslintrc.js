@@ -7,7 +7,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
-    'prettier', // оставьте только эту строку для Prettier
+    'prettier', 
   ],
   overrides: [
     {

@@ -1,0 +1,62 @@
+.button-ui {
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+  transition: 0.1s;
+  &.disabled {
+    cursor: default;
+    pointer-events: none;
+  }
+  &.red {
+    background-color: $Red;
+    color: $White;
+    &:hover {
+      background-color: $Light-red;
+    }
+    &:active {
+      background-color: $Dark-red;
+    }
+    &.disabled {
+      background-color: $Lightest-grey-second;
+      color: $Lightest-grey;
+      opacity: 0.5;
+    }
+  }
+  &.white {
+    background-color: $White;
+    color: $Light-grey;
+    border: 1px solid $Light-grey;
+    &:hover {
+      background-color: $Lightest-grey;
+    }
+    &:active {
+      color: $Grey;
+      background-color: $Dark-grey;
+    }
+    &.disabled {
+      background-color: $Lightest-grey-second;
+      color: $Light-grey;
+      opacity: 0.5;
+    }
+  }
+
+  &.Small {
+    width: 104px;
+  }
+  &.Medium {
+    width: 171px;
+  }
+  &.Large {
+    width: 366px;
+  }
+  &.default {
+    width: 104px;
+  }
+}

@@ -1,0 +1,21 @@
+.notFound-page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .notFound-title {
+    font-weight: 800;
+    line-height: 49.18px;
+    font-size: 2.5rem;
+    color: $Lightest-red;
+    margin-bottom: 1rem;
+  }
+  .notFound-text {
+    font-weight: 400;
+    line-height: 32.78px;
+    font-size: 1.25rem;
+    color: $Grey;
+  }
+}
