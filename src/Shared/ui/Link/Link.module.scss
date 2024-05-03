@@ -4,8 +4,13 @@
   color: $Red;
   transition: 0.1s;
   font-weight: 500;
-}
+  text-decoration: none;
+  }
 
 .disabled {
-  color: $lightest-grey;
+  color: $Lightest-grey;
+}
+
+.underline {
+  text-decoration: underline;
 }

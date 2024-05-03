@@ -13,6 +13,10 @@ export interface ICheckBoxProps {
   error?: string;
 
   /**
+   * Обработчик изменений
+   */
+  onChange?: (isChecked: boolean) => void;
+  /**
    * Дочерние элементы
    */
   children?: React.ReactNode;

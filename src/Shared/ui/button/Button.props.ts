@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes } from 'react';
 
-export type ButtonSize = 'Small' | 'Medium' | 'Large';
+export type ButtonSize = 'Small' | 'Medium' | 'Large' | 'Pagination';
 export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * Вторичная кнопка

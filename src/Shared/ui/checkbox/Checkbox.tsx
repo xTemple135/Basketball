@@ -8,12 +8,14 @@ const CheckBox: React.FC<ICheckBoxProps> = ({
   isChecked,
   disabled,
   error,
-  children
+  children,
+  onChange
 }) => {
   const [checked, setChecked] = useState<boolean>(isChecked || false);
   const toggleCheckbox = () => {
     if (!disabled) {
       setChecked(!checked);
+      onChange && onChange(!checked);
     }
   };
   return (

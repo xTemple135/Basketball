@@ -12,6 +12,7 @@
   padding: 20px;
   background-color: white;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  
   .aside-teams,
   .aside-players,
   .aside-sign_out {
@@ -21,30 +22,38 @@
     align-items: center;
     text-align: center;
     cursor: pointer;
-  }
 
-  .aside-teams svg,
-  .aside-players svg,
-  .aside-sign_out svg {
-    fill: $Red;
-    width: 100%;
-    height: auto;
-  }
+    svg {
+      fill: $Light-grey;
+      width: 100%;
+      height: auto;
+    }
 
-  .aside-teams span,
-  .aside-players span {
-    color: $Light-grey;
-    margin-top: 8px;
+    span {
+      font-size: 12px;
+      font-weight: 500;
+      color: $Light-grey;
+      margin-top: 8px;
+    }
+
+    &.active {
+      svg {
+        fill: $Red;
+      }
+      span {
+        color: $Red;
+      }
+    }
   }
 
   .aside-sign_out {
     margin-top: auto;
-    color: $Red;
+
     svg {
       fill: $Red;
     }
     span {
-      margin-top: 8px;
+      color: $Red;
     }
   }
 }

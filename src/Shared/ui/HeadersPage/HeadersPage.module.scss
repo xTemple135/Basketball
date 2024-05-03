@@ -1,0 +1,23 @@
+.HeaderPage {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 20px;
+
+  &_path {
+    display: flex;
+  }
+  &-path_items {
+    display: flex;
+  }
+  &-path-items_slash {
+    margin: 0 5px;
+  }
+  &-path-items_text {
+    color: $Red;
+    font-size: 14px;
+    font-weight: 500;
+  }
+}

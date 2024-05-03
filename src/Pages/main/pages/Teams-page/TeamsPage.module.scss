@@ -1,0 +1,28 @@
+// TeamsPage.module.scss
+.TeamsPage {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &_input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &_content {
+    margin-top: 35px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  &_footer {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

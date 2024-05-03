@@ -1,0 +1,33 @@
+.teamEdit-wrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: $White;
+  .TeamAdd {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .teamEdit-page {
+    display: flex;
+    gap: 125px;
+    padding: 70px 74px;
+
+    &_form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 25px;
+    }
+    &_footer {
+      display: flex;
+      flex-direction: row;
+      gap: 30px;
+    }
+  }
+  .link {
+    color: inherit;
+    text-decoration: none;
+  }
+}

@@ -1,0 +1,53 @@
+.SignIn {
+  min-width: 1440px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  margin: auto;
+  .content {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0 auto;
+      gap: 24px;
+    }
+    .error {
+      color: $Lightest-red;
+      margin-top: -24px;
+      font-size: 12px;
+    }
+  }
+  .signInLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .imageContainer {
+    position: relative;
+    height: 100vh;
+    flex: 1;
+    background-color: $Light-blue;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center; 
+    padding-right: 250px;
+    .errorContainer{
+      position: absolute;
+      top: 50px;
+      right: 100px;
+    }
+    img {
+      padding-bottom: 50px;
+      padding-left: 100px;
+    }
+  }
+}

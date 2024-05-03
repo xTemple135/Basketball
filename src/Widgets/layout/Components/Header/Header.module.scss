@@ -12,11 +12,16 @@
   box-shadow: 0px 1px 10px 0px #d1d1d180;
   background-color: white;
   z-index: 101;
+  &_logo {
+    cursor: pointer;
+    
+  }
 
   .header_right {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 8px;
+    
   }
 }

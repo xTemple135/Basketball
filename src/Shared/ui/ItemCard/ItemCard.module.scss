@@ -1,0 +1,54 @@
+.itemCard {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  cursor: pointer;
+  background: linear-gradient(121.57deg, $Grey 1.62%, $Dark-grey 81.02%);
+  aspect-ratio: 1;
+  width: 100%;
+  &-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+  }
+  &-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+
+    img {
+      width: 100%;
+      max-height: 100%;
+      height: auto;
+      max-width: 150px;
+      max-height: 150px;
+    }
+  }
+  &-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 8px;
+    padding: 20px 11px;
+    background-color: $Dark-grey;
+    text-align: center;
+    border-bottom-left-radius:10px;
+    border-bottom-right-radius:10px;
+
+    &_title {
+      color: $White;
+      font-size: 18px;
+    }
+    &_subtitle {
+      color: $Light-grey;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+.ErrorNotification {
+    display: flex;
+    padding: 8px 16px;
+    align-items: center;
+    max-width: 470px;
+    height: 40px;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    background-color: $Light-red;
+}

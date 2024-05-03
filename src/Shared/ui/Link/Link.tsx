@@ -6,14 +6,16 @@ import cn from 'classnames';
 
 const CustomLink: React.FC<ILink> = ({
   href,
-  isDisabled = false,
-  children
+  isDisabled,
+  children,
+  underLine
 }) => {
   return (
     <Link
-      to={href}
+      to={href} // принимает в себя имя маршрута страницы
       className={cn(styles['ui-link'], {
-        [styles['disabled']]: isDisabled
+        [styles['disabled']]: isDisabled,
+        [styles['underline']]: underLine
       })}
     >
       {children}

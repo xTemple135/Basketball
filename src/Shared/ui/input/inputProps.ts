@@ -1,3 +1,5 @@
+import { UseFormClearErrors, UseFormRegister } from 'react-hook-form';
+
 export interface IInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   /**
@@ -45,5 +47,16 @@ export interface IInputProps
    * Ширина поля
    */
   width?: string;
+
+  /**
+   * Для React Hook-Form
+   */
+  register?: UseFormRegister<any>;
+
+  clearErrors?: UseFormClearErrors<any>;
+
+  name?: string;
+
+  onSearch?: (searchQuery: string) => void; // Define onSearch prop
 
 }

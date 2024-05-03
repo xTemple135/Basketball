@@ -7,10 +7,15 @@ export interface ILink {
   /**
    * Указывает, отключена ли ссылка.
    */
-  isDisabled: boolean;
+  isDisabled?: boolean;
 
   /**
    * Содержимое, отображаемое внутри ссылки.
    */
   children: React.ReactNode;
+
+  /**
+   * Подчеркнута ли ссылка
+   */
+  underLine?: boolean;
 }
