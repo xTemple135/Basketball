@@ -1,10 +1,13 @@
-import { teamsSlice, userSlice } from '@/Entities';
+import { playersSlice, teamsSlice, userSlice } from '@/Entities';
+import { sideBarSlice } from '@/Widgets';
 import { configureStore } from '@reduxjs/toolkit';
 
 export const store = configureStore({
   reducer: {
     auth: userSlice,
-    teams: teamsSlice
+    teams: teamsSlice,
+    players: playersSlice,
+    side:sideBarSlice,
   }
 });
 

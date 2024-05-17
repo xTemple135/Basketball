@@ -1,5 +1,5 @@
 .SignUp {
-  min-width: 1440px;
+  min-width: 320px;
   min-height: 100vh;
   display: flex;
   flex-direction: row;
@@ -11,6 +11,7 @@
     flex: 1;
     display: flex;
     justify-content: space-between;
+    padding-left: 15px;
     form {
       display: flex;
       flex-direction: column;
@@ -31,15 +32,34 @@
 
   .imageContainer {
     height: 100vh;
-    flex: 1;
     background-color: $Light-blue;
     display: flex;
     justify-content: flex-end; /* Выравнивает горизонтально справа */
     align-items: center; /* Выравнивает вертикально по центру */
-    padding-right: 250px;
+    padding-right: 125px;
     img {
-      padding-bottom: 50px;
-      padding-left: 100px;
+      max-width: 100%;
+      height: auto;
     }
   }
 }
+
+@media (max-width: 768px) {
+  .SignUp {
+    flex-direction: column;
+    .content {
+      padding-right: 30px;
+      max-width: 100%;
+      justify-content: center;
+      form {
+        min-width: 100%;
+        padding: 15px;
+      }
+    }
+    .imageContainer {
+      padding-right: 15px;
+      display: none;
+    }
+  }
+}
+

@@ -11,17 +11,22 @@ const Button: React.FC<IButtonProps> = ({
   width,
   disabled,
   onClick,
-  children
+  children,
+  className
 }) => {
   return (
     <>
       <button
-        className={cn(styles['button-ui'], {
-          [styles['red']]: !secondary,
-          [styles['white']]: secondary,
-          [styles['disabled']]: disabled,
-          [styles[width ?? 'default']]: width
-        })}
+        className={cn(
+          styles['button-ui'],
+          {
+            [styles['red']]: !secondary,
+            [styles['white']]: secondary,
+            [styles['disabled']]: disabled,
+            [styles[width ?? 'default']]: width
+          },
+          className
+        )}
         onClick={onClick} // обработчик клика
         disabled={disabled} // отключение кнопки
       >

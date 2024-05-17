@@ -4,6 +4,7 @@ import axios from 'axios';
 import { PREFIX } from '@/Shared/ui';
 import { getToken } from '@/Features';
 
+const token = getToken();
 interface FetchTeamsParams {
   Name?: string;
   Page?: number;
@@ -16,7 +17,6 @@ export const teamsItems = createAsyncThunk<
   { rejectValue: string }
 >('teams/fetchTeams', async (params, thunkAPI) => {
   try {
-    const token = getToken();
     const response = await axios.get<TeamsState>(
       `${PREFIX}/api/Team/GetTeams`,
       {
@@ -40,7 +40,6 @@ export const TeamsAdd = createAsyncThunk<
   }
 >('teams/addTeam', async (newTeam, thunkAPI) => {
   try {
-    const token = getToken();
     const response = await axios.post<TeamsInterface>(
       `${PREFIX}/api/Team/Add`,
       newTeam,
@@ -61,6 +60,29 @@ export const TeamsAdd = createAsyncThunk<
   return thunkAPI.rejectWithValue({
     message: 'Произошла ошибка'
   });
+});
+
+export const TeamsUpdate = createAsyncThunk<
+  TeamsInterface,
+  TeamsInterface,
+  {
+    rejectValue: string;
+  }
+>('teams/updateTeam', async (updateTeam, thunkAPI) => {
+  try {
+    const response = await axios.put<TeamsInterface>(
+      `${PREFIX}/api/Team/Update`,
+      updateTeam,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+    return response.data;
+  } catch (err) {
+    return thunkAPI.rejectWithValue('Произошла ошибка');
+  }
 });
 
 const initialState: TeamsState = {
@@ -120,9 +142,24 @@ export const teamsSlice = createSlice({
         state.error = action.payload?.message;
       }
     );
+    builder.addCase(TeamsUpdate.pending, (state) => {
+      state.status = 'loading';
+    });
+    builder.addCase(
+      TeamsUpdate.fulfilled,
+      (state, action: PayloadAction<TeamsInterface>) => {
+        state.status = 'idle';
+        const teamIndex = state.data.findIndex(
+          (team) => team.id === action.payload.id
+        );
+        if(teamIndex !== -1) {
+          state.data[teamIndex] = action.payload
+        }
+      }
+    );
   }
 });
 
-export const {errorClear} = teamsSlice.actions
+export const { errorClear } = teamsSlice.actions;
 
 export default teamsSlice.reducer;

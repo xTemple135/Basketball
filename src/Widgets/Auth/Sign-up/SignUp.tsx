@@ -38,7 +38,7 @@ const SignUp: React.FC = () => {
           >
             I accept the agreement
           </Checkbox>
-          <Button type="submit" width="Large" disabled={!agreementAccepted}>
+          <Button type="submit"  disabled={!agreementAccepted}>
             Sign Up
           </Button>
           <p className={styles['signInLink']}>

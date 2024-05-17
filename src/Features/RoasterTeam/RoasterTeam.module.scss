@@ -1,0 +1,80 @@
+.teamRoster {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 0.7px solid $Light-grey;
+  border-radius: 15px;
+  background-color: $White;
+  color: $Grey;
+
+  &_Title {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    height: 55px;
+    font-size: 18px;
+    border-bottom: 1px solid $Light-grey;
+    padding: 0 25px;
+  }
+
+  &_Item {
+    display: grid;
+    grid-template-columns: 36px 1fr 66px 66px 36px;
+    align-items: center;
+    width: 100%;
+    gap: 84px;
+    padding: 6px 22px;
+    min-height: 45px;
+    border-bottom: 0.5px solid $Light-grey;
+    &_Block {
+      display: flex;
+      flex-direction: row;
+      &_avatar  {
+        display: flex;
+        flex-direction: row;
+        width: 52px;
+        height: 38px;
+      }
+    }
+
+    &_Title {
+      cursor: pointer;
+      position: relative;
+      max-width: fit-content;
+      line-height: 1;
+
+      &:hover {
+        color: $Lightest-red; 
+      }
+    }
+  }
+
+  &_Player {
+    display: grid;
+    grid-template-columns: 36px 1fr 66px 66px 36px;
+    align-items: center;
+    width: 100%;
+    gap: 84px;
+    padding: 6px 22px;
+    min-height: 56px;
+    border-bottom: 0.5px solid $Light-grey;
+  }
+
+  &_Players {
+    width: 100%;
+  }
+}
+
+@media (max-width: 990px) {
+  .teamRoster_Item {
+    grid-template-columns: 36px 1fr; // Оставляем только два столбца: "#" и "Player"
+
+    // Скрываем содержимое столбцов "Height", "Weight" и "Age"
+    div:nth-child(3), div:nth-child(4), div:nth-child(5) {
+      display: none;
+    }
+  }
+}
+

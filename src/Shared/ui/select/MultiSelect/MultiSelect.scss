@@ -1,0 +1,63 @@
+.custom-select-container {
+  .custom-select {
+    &__control {
+      height: 40px;
+      background-color: $White;
+      &:hover {
+        border-color: $Lightest-grey;
+        box-shadow: none;
+      }
+      &--is-focused {
+        border-color: $Lightest-grey;
+        outline: none;
+        box-shadow: none;
+      }
+    }
+    &__menu {
+      color: $Light-grey;
+    }
+    &__option {
+      transition: 0.3s;
+      cursor: pointer;
+      &:hover {
+        color: $White;
+        background-color: $Lightest-red;
+        border-color: $Dark-red;
+      }
+      &:active {
+        color: $White;
+        background-color: $Dark-red;
+      }
+      &--is-selected {
+        background-color: $Dark-red;
+        color: $White;
+      }
+      &--is-focused {
+        background-color: $Lightest-red;
+        color: $White;
+      }
+    }
+    &__multi-value {
+      background-color: $Red;
+      color: $White;
+      &__label {
+        padding: 5px;
+        color: $White;
+        font-size: 14px;
+        font-weight: 400;
+      }
+    }
+  }
+}
+
+@media (max-width: 1150px) {
+  .custom-select_wrapper {
+    width: 50% !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .custom-select_wrapper {
+    width: 100% !important;
+  }
+}

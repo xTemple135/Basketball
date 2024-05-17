@@ -3,11 +3,6 @@ import { UseFormClearErrors, UseFormRegister } from 'react-hook-form';
 export interface IInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   /**
-   * Текст ввода
-   */
-  modeValue?: string;
-
-  /**
    * Заголовк
    */
 

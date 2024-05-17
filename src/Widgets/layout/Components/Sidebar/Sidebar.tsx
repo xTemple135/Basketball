@@ -1,23 +1,53 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styles from './Sidebar.module.scss';
 import { CustomLink } from '@/Shared/ui/index';
 import { useLocation, useNavigate } from 'react-router-dom';
 import cn from 'classnames';
-import { AppDispatch } from '@/App/store';
-import { useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from '@/App/store';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '@/Entities/Auth/AuthSlice';
+import { setIsOpen, toggleSideBar } from './model';
 
 const Sidebar: React.FC = () => {
+  const isSidebarOpen = useSelector(
+    (state: RootState) => state.side.isSidebarOpen
+  );
   const dispatch: AppDispatch = useDispatch();
+  const sidebarRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+
   // Обработчик выхода из профиля
   const handleLogOut = () => {
     dispatch(logout());
     navigate('/auth/login');
   };
-  const location = useLocation(); 
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        dispatch(setIsOpen(false));
+      } else {
+        dispatch(setIsOpen(true));
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Удалите обработчик при размонтировании компонента
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [dispatch]);
+  
+  const location = useLocation();
   return (
-    <div className={styles['aside-wrapper']}>
+    <div
+      ref={sidebarRef}
+      className={cn({
+        [styles['aside-wrapper-open']]: !isSidebarOpen,
+        [styles['aside-wrapper']]: isSidebarOpen
+      })}
+    >
       {/* Добавление active для текущего маршрута */}
       <div
         className={cn(styles['aside-teams'], {

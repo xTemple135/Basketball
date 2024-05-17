@@ -1,4 +1,5 @@
-.aside-wrapper {
+.aside-wrapper,
+.aside-wrapper-open {
   position: fixed;
   top: 80px;
   left: 0;
@@ -12,43 +13,39 @@
   padding: 20px;
   background-color: white;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  
-  .aside-teams,
-  .aside-players,
-  .aside-sign_out {
-    width: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    cursor: pointer;
+  transition: transform 0.3s ease; /* Анимация для перемещения */
+  transform: translateX(0px);
+  z-index: 5;
+}
 
-    svg {
-      fill: $Light-grey;
-      width: 100%;
-      height: auto;
-    }
+.aside-wrapper {
+  transform: translateX(-140px); /* Сдвигаем на 140px влево */
+}
 
-    span {
-      font-size: 12px;
-      font-weight: 500;
-      color: $Light-grey;
-      margin-top: 8px;
-    }
+.aside-teams,
+.aside-players,
+.aside-sign_out {
+  width: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
 
-    &.active {
-      svg {
-        fill: $Red;
-      }
-      span {
-        color: $Red;
-      }
-    }
+  svg {
+    fill: $Light-grey;
+    width: 100%;
+    height: auto;
   }
 
-  .aside-sign_out {
-    margin-top: auto;
+  span {
+    font-size: 12px;
+    font-weight: 500;
+    color: $Light-grey;
+    margin-top: 8px;
+  }
 
+  &.active {
     svg {
       fill: $Red;
     }
@@ -56,4 +53,23 @@
       color: $Red;
     }
   }
+}
+
+.aside-sign_out {
+  margin-top: auto;
+
+  svg {
+    fill: $Red;
+  }
+  span {
+    color: $Red;
+  }
+}
+
+@media (max-width: 768px) {
+  .aside-wrapper {
+    display: flex;
+  }
+
+
 }

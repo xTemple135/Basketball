@@ -1,5 +1,5 @@
 .SignIn {
-  min-width: 1440px;
+  min-width: 320px;
   min-height: 100vh;
   display: flex;
   flex-direction: row;
@@ -18,6 +18,7 @@
       justify-content: center;
       margin: 0 auto;
       gap: 24px;
+      padding-left: 15px;
     }
     .error {
       color: $Lightest-red;
@@ -38,16 +39,31 @@
     background-color: $Light-blue;
     display: flex;
     justify-content: flex-end;
-    align-items: center; 
-    padding-right: 250px;
-    .errorContainer{
+    align-items: center;
+    padding-right: 150px;
+    padding-left: 35px;
+    .errorContainer {
       position: absolute;
       top: 50px;
       right: 100px;
     }
     img {
-      padding-bottom: 50px;
-      padding-left: 100px;
+      max-width: 100%;
+      height: auto;
+    }
+  }
+}
+
+/* Медиа-запросы для адаптивной верстки */
+@media screen and (max-width: 768px) {
+  .SignIn {
+    .content {
+      form {
+        align-items: center;
+      }
+    }
+    .imageContainer {
+      display: none;
     }
   }
 }

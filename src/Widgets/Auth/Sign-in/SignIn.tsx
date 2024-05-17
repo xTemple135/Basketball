@@ -46,7 +46,7 @@ const SignIn: React.FC = () => {
             Sign In
           </Button>
           <p className={styles['signInLink']}>
-            Already a member?{' '}
+            Not a member yet?
             <CustomLink href="/auth/register" underLine>
               Sign in
             </CustomLink>

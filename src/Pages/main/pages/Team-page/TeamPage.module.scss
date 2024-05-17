@@ -1,0 +1,154 @@
+.teamPage {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+  &-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  &-info-content {
+    display: flex;
+    background: linear-gradient(276.45deg, #707070 0%, #393939 100.28%);
+    width: 100%;
+    min-height: 400px;
+    &_image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 25px;
+      max-width: 500px;
+      min-height: 100%;
+      width: 100%;
+      img {
+        border-radius: 10px;
+        min-width: 450px;
+        height: auto;
+      }
+    }
+    &_info {
+      padding: 70px 55px 55px 60px;
+      &_title {
+        display: flex;
+        justify-content: center;
+        font-size: 36px;
+        font-weight: 800;
+        line-height: 50px;
+        color: $White;
+        margin-bottom: 50px;
+      }
+      &_description {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 50px;
+        column-gap: 100px;
+        &_item {
+          color: $White;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          &_title {
+            font-size: 24px;
+            font-weight: 800;
+            line-height: 32px;
+          }
+          &_text {
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 25px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1250px) {
+  .teamPage {
+    &-info-content {
+      &_image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 25px;
+        min-width: 350px;
+        min-height: 100%;
+
+        img {
+          border-radius: 10px;
+          min-width: 300px;
+          height: auto;
+        }
+      }
+      &_info {
+        padding: 70px 55px 55px 60px;
+
+        &_description {
+          &_item {
+            &_title {
+              font-size: 24px;
+              font-weight: 800;
+              line-height: 32px;
+            }
+            &_text {
+              font-size: 18px;
+              font-weight: 500;
+              line-height: 25px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1060px) {
+  .teamPage {
+    &-info-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: linear-gradient(276.45deg, #707070 0%, #393939 100.28%);
+      width: 100%;
+      min-height: 400px;
+      &_image {
+        img {
+          border-radius: 10px;
+          width: 89px;
+          height: auto;
+        }
+      }
+      &_info {
+        padding: 70px 55px 55px 60px;
+        &_title {
+          display: flex;
+          justify-content: center;
+          font-size: 17px;
+          font-weight: 800;
+          line-height: 50px;
+          color: $White;
+          margin-bottom: 50px;
+        }
+        &_description {
+          display: grid;
+          grid-template-columns: repeat(1, 1fr);
+          row-gap: 50px;
+          column-gap: 100px;
+          &_item {
+            &_title {
+              font-size: 17px;
+              font-weight: 800;
+              line-height: 25px;
+            }
+            &_text {
+              font-size: 15px;
+              font-weight: 500;
+              line-height: 25px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -3,7 +3,6 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-
   &_input {
     display: flex;
     flex-direction: row;
@@ -11,7 +10,16 @@
     justify-content: space-between;
   }
 
+  .TeamsPage_empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
   &_content {
+    width: 100%;
+    height: 100%;
     margin-top: 35px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -24,5 +32,47 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+  }
+  .link {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .TeamsPage {
+    &_input {
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .TeamsPage {
+    .TeamsPage_empty {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    &_input {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+  }
+  .TeamsPage_input-wide {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 1150px) {
+  .TeamsPage {
+    &_content {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 }

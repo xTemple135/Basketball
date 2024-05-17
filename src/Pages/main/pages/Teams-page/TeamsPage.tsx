@@ -3,10 +3,21 @@ import styles from './TeamsPage.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/App/store';
 import { teamsItems } from '@/Entities';
-import { Button, CardSelect, Input, ItemCard, Loading } from '@/Shared/ui';
+import {
+  Button,
+  CustomSelect,
+  EmptyItems,
+  Input,
+  ItemCard,
+  Loading,
+  options
+} from '@/Shared/ui';
 import { Pagination } from '@/Features/Pagintation';
 import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
+import { Link } from 'react-router-dom';
+import EmptyTeam from '@/Shared/assets/images/EmptyTeam.png';
+import { GetPlayers } from '@/Entities/Players/PlayersSlice';
 
 const TeamsPage: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -17,13 +28,19 @@ const TeamsPage: React.FC = () => {
     value: number;
     label: string;
   } | null>({ value: 6, label: '6' });
-  const [searchQuery, setSearchQery] = useState('');
   const navigate = useNavigate();
   // Имитация задержки загрузки данных
   useEffect(() => {
+    setIsLoading(true);
     setTimeout(() => {
-      dispatch(teamsItems({})); // Загрузка данных о командах
-      setIsLoading(false);
+      dispatch(teamsItems({}))
+        .then(() => {
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.error(error);
+          setIsLoading(false);
+        });
     }, 1000);
   }, []);
 
@@ -31,9 +48,9 @@ const TeamsPage: React.FC = () => {
     navigate('/team-edit');
   };
   // функция для поиска команд
-  const handleSearch = debounce((searchQuery:string) => {
-    dispatch(teamsItems({Name: searchQuery}))
-  }, 500) // интервал debounce 
+  const handleSearch = debounce((searchQuery: string) => {
+    dispatch(teamsItems({ Name: searchQuery }));
+  }, 500); // интервал debounce
 
   const startIndex =
     (currentPage - 1) * (cardsPerPage ? cardsPerPage.value : 6); // Индекс первого элемента на текущей странице
@@ -42,25 +59,41 @@ const TeamsPage: React.FC = () => {
   return (
     <div className={styles['TeamsPage']}>
       <div className={styles['TeamsPage_input']}>
-        <Input isSearch placeholder="Search..." onSearch={handleSearch} />
+        <Input
+          isSearch
+          placeholder="Search..."
+          onSearch={handleSearch}
+          className={styles['TeamsPage_input-wide']}
+        />
         <Button width={'Small'} onClick={handleButtonClick}>
           Add +
         </Button>
       </div>
-      <div className={styles['TeamsPage_content']}>
-        {isLoading ? (
-          <Loading message="Загрузка..." />
-        ) : (
-          currentPageItems.map((team) => (
-            <ItemCard
+      {isLoading ? (
+        <Loading />
+      ) : teamsData.length === 0 ? (
+        <div className={styles['TeamsPage_empty']}>
+          <EmptyItems image={EmptyTeam} text="Add new teams to continue" />
+        </div>
+      ) : (
+        <div className={styles['TeamsPage_content']}>
+          {currentPageItems.map((team) => (
+            <Link
               key={team.id}
-              image={team.imageUrl}
-              title={team.name}
-              subtitle={`Year of foundation:${team.foundationYear}`}
-            />
-          ))
-        )}
-      </div>
+              to={`/teams/${team.id}`}
+              className={styles['link']}
+            >
+              <ItemCard
+                type="team"
+                key={team.id}
+                image={team.imageUrl}
+                title={team.name}
+                subtitle={`Year of foundation:${team.foundationYear}`}
+              />
+            </Link>
+          ))}
+        </div>
+      )}
       {!isLoading && (
         <div className={styles['TeamsPage_footer']}>
           <Pagination
@@ -69,8 +102,11 @@ const TeamsPage: React.FC = () => {
             pageSize={cardsPerPage?.value}
             onPageChange={setCurrentPage}
           />
-
-          <CardSelect value={cardsPerPage} onChange={setCardsPerPage} />
+          <CustomSelect
+            value={cardsPerPage}
+            onChange={setCardsPerPage}
+            options={options}
+          />
         </div>
       )}
     </div>
