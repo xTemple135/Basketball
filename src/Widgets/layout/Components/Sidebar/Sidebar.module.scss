@@ -67,9 +67,42 @@
 }
 
 @media (max-width: 768px) {
-  .aside-wrapper {
+  .aside-wrapper-open {
     display: flex;
+    align-items: start;
+    width: 200px;
+    padding: 0;
+    gap: 15px;
   }
+  .aside-user {
+    width: 100%;
+    border-bottom: 1px solid $Light-grey;
+    padding: 20px;
+    &_info {
+      display: flex;
+      align-items: center;
+    }
+  }
+  .aside-teams,
+  .aside-players,
+  .aside-sign_out {
+    padding-left: 35px;
+    .aside-players-link {
+      display: flex;
+      svg {
+        width: 24px;
+      }
+      span {
+        padding-bottom: 10px;
+      }
+    }
+  }
+  .aside-sign_out {
+    .aside-sign_out-content {
+      display: flex;
+      flex-direction: row;
+      padding: 0px 0px 15px 15px;
 
-
+    }
+  }
 }

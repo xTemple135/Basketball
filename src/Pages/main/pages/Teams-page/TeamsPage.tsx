@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styles from './TeamsPage.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/App/store';
@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import { debounce } from 'lodash';
 import { Link } from 'react-router-dom';
 import EmptyTeam from '@/Shared/assets/images/EmptyTeam.png';
-import { GetPlayers } from '@/Entities/Players/PlayersSlice';
+
 
 const TeamsPage: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -48,9 +48,12 @@ const TeamsPage: React.FC = () => {
     navigate('/team-edit');
   };
   // функция для поиска команд
-  const handleSearch = debounce((searchQuery: string) => {
-    dispatch(teamsItems({ Name: searchQuery }));
-  }, 500); // интервал debounce
+  const handleSearch = useCallback(
+    debounce((searchQuery: string) => {
+      dispatch(teamsItems({ Name: searchQuery }));
+    }, 500),
+    [] // зависимости
+  );
 
   const startIndex =
     (currentPage - 1) * (cardsPerPage ? cardsPerPage.value : 6); // Индекс первого элемента на текущей странице

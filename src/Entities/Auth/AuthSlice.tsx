@@ -17,7 +17,6 @@ export const login = createAsyncThunk<
       `${PREFIX}/api/Auth/SignIn`,
       data
     );
-    console.log(response.data);
     return response.data;
   } catch (error) {
     return thunkAPI.rejectWithValue('Wrong password. Please, try again.');
@@ -38,7 +37,6 @@ export const regUser = createAsyncThunk<
       `${PREFIX}/api/Auth/SignUp`,
       data
     );
-    console.log(response.data);
     return response.data;
   } catch (error) {  // обработка ошибок
     const axiosError = error as AxiosError;

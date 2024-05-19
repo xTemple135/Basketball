@@ -1,14 +1,15 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { ImageLoaderProps } from './ImageLoader.props';
 import styles from './ImageLoader.module.scss';
 import addPhoto from '@/Shared/assets/icons/add_photo_rounded.svg';
 
+// Компонент ImageLoader, который позволяет загружать изображения
 const ImageLoader: React.FC<ImageLoaderProps> = ({ value, onChange, className}) => {
-  const fileInput = useRef<HTMLInputElement>(null);
-  const [imageUrl, setImageUrl] = useState<string>('');
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const fileInput = useRef<HTMLInputElement>(null); // ссылка на input файл
+  const [imageUrl, setImageUrl] = useState<string>(''); // загруженное изображение
+  const [errorMessage, setErrorMessage] = useState<string>(''); // сообщение об ошибке
 
+  // useEffect для обновления URL изображения при изменении значения
   useEffect(() => {
     if (value) {
       setImageUrl(
@@ -17,10 +18,12 @@ const ImageLoader: React.FC<ImageLoaderProps> = ({ value, onChange, className}) 
     }
   }, [value]);
 
+  // Обработчик клика, который открывает диалог выбора файла
   const onClick = () => {
     fileInput.current?.click();
   };
 
+  // Обработчик изменения файла
   const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file && validateImage(file)) {
@@ -29,6 +32,7 @@ const ImageLoader: React.FC<ImageLoaderProps> = ({ value, onChange, className}) 
     }
   };
 
+  // Функция для проверки, является ли файл изображением
   const validateImage = (file: File): boolean => {
     if (!file) return false;
     if (!file.type.startsWith('image/')) {
@@ -41,7 +45,6 @@ const ImageLoader: React.FC<ImageLoaderProps> = ({ value, onChange, className}) 
 
   return (
     <div className={`${styles['imageLoader']} ${className}`} onClick={onClick}>
-
       <div className={styles['imageLoader-content']}>
         {imageUrl ? (
           <img

@@ -1,9 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import {
-  FetchPlayersParams,
-  PlayerInterface,
-  PlayerState,
-} from './model';
+import { FetchPlayersParams, PlayerInterface, PlayerState } from './model';
 import axios from 'axios';
 import { Option, PREFIX } from '@/Shared/ui';
 import { getToken } from '@/Features';
@@ -87,7 +83,7 @@ export const GetPositions = createAsyncThunk<
         }
       }
     );
-    console.log(response.data)
+
     return response.data;
   } catch (err) {
     return thunkAPI.rejectWithValue('Не удалось получить данные о позициях');
@@ -101,7 +97,7 @@ const initialState: PlayerState = {
   size: 0,
   status: 'idle',
   error: null,
-  positions: [],
+  positions: []
 };
 
 export const playersSlice = createSlice({

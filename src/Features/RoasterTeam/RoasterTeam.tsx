@@ -1,6 +1,6 @@
-import { AppDispatch, RootState } from '@/App/store';
+import { RootState } from '@/App/store';
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styles from './RoasterTeam.module.scss';
 import { AgeCalculator } from '@/Entities';
 import cn from 'classnames';
@@ -12,7 +12,6 @@ const RoasterTeam: React.FC<RoasterTeamProps> = ({ teamId }) => {
   const [selectedSort, setSelectedSort] = useState('number');
   const [reverseSort, setReverseSort] = useState(false);
   const teamPlayers = players.filter((player) => player.team === teamId);
-  console.log(selectedSort)
   const sortedPlayers = [...teamPlayers].sort((a, b) => {
     if (a[selectedSort] < b[selectedSort]) {
       return reverseSort ? 1 : -1;

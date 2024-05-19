@@ -1,45 +1,56 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styles from './Sidebar.module.scss';
-import { CustomLink } from '@/Shared/ui/index';
+import { Avatar, CustomLink } from '@/Shared/ui/index';
 import { useLocation, useNavigate } from 'react-router-dom';
 import cn from 'classnames';
 import { AppDispatch, RootState } from '@/App/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '@/Entities/Auth/AuthSlice';
-import { setIsOpen, toggleSideBar } from './model';
+import { setIsOpen } from './model';
+import { SidebarProps } from './Sidebar.proops';
+import IconExit from '@/Shared/assets/images/exit.png';
 
-const Sidebar: React.FC = () => {
+const Sidebar: React.FC<SidebarProps> = ({ nameHeader }) => {
   const isSidebarOpen = useSelector(
-    (state: RootState) => state.side.isSidebarOpen
+    (state: RootState) => state.side.isSidebarOpen // Получаем состояние боковой панели из Redux store
   );
   const dispatch: AppDispatch = useDispatch();
   const sidebarRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const [usernameVisible, setUsernameVisible] = useState<boolean>(false);
 
   // Обработчик выхода из профиля
-  const handleLogOut = () => {
-    dispatch(logout());
-    navigate('/auth/login');
-  };
+  const handleLogOut = useCallback(() => {
+    dispatch(logout()); //  Вызываем action для выхода из профиля
+    navigate('/auth/login'); // переход на главную страницу
+  }, [dispatch, navigate]);
+
+  // Обработчик изменения размера окна
+  const handleResize = useCallback(() => {
+    const shouldShowUsername = window.innerWidth <= 768;
+    dispatch(setIsOpen(shouldShowUsername)); // если окно меньше 768px то скрываем панель
+    setUsernameVisible(shouldShowUsername); // если окно меньше 768px то показываем имя пользователя
+  }, [dispatch]);
 
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 768) {
-        dispatch(setIsOpen(false));
-      } else {
-        dispatch(setIsOpen(true));
-      }
-    };
+    handleResize(); // Вызов обработчика при монтировании компонента
+    window.addEventListener('resize', handleResize); // Обработчик на событие изменения размера страницы
 
-    window.addEventListener('resize', handleResize);
-
-    // Удалите обработчик при размонтировании компонента
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', handleResize); // Очистка события
     };
-  }, [dispatch]);
-  
-  const location = useLocation();
+  }, [handleResize]);
+
+  useEffect(() => {
+    if (
+      (location.pathname === '/teams' || location.pathname === '/players') &&
+      window.innerWidth <= 768
+    ) {
+      dispatch(setIsOpen(true)); // Скрываем сайдбар после выбора teams или players
+    }
+  }, [location, dispatch]);
+
   return (
     <div
       ref={sidebarRef}
@@ -48,13 +59,22 @@ const Sidebar: React.FC = () => {
         [styles['aside-wrapper']]: isSidebarOpen
       })}
     >
+      {usernameVisible && (
+        <div className={styles['aside-user']}>
+          <div className={styles['aside-user_info']}>
+          <Avatar />
+          <span>{nameHeader}</span>
+          </div>
+
+        </div>
+      )}
       {/* Добавление active для текущего маршрута */}
       <div
         className={cn(styles['aside-teams'], {
           [styles['active']]: location.pathname == '/teams'
         })}
       >
-        <CustomLink href="/teams">
+        <CustomLink classname={styles['aside-players-link']} href="/teams">
           <svg
             width="16"
             height="16"
@@ -79,7 +99,7 @@ const Sidebar: React.FC = () => {
           [styles['active']]: location.pathname == '/players'
         })}
       >
-        <CustomLink href="/players">
+        <CustomLink classname={styles['aside-players-link']} href="/players">
           <svg
             width="16"
             height="16"
@@ -101,23 +121,10 @@ const Sidebar: React.FC = () => {
         </CustomLink>
       </div>
       <div onClick={handleLogOut} className={styles['aside-sign_out']}>
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g id="input">
-            <path
-              id="input_2"
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M2.00008 2.00659H14.0001C14.7334 2.00659 15.3334 2.60659 15.3334 3.33993V12.6599C15.3334 13.3933 14.7334 13.9933 14.0001 13.9933H1.98675C1.26008 13.9933 0.666748 13.3999 0.666748 12.6733V10.6666C0.666748 10.2999 0.966748 9.99993 1.33341 9.99993C1.70008 9.99993 2.00008 10.2999 2.00008 10.6666V12.0133C2.00008 12.3799 2.30008 12.6799 2.66675 12.6799H13.3334C13.7001 12.6799 14.0001 12.3799 14.0001 12.0133V3.99326C14.0001 3.62659 13.7001 3.32659 13.3334 3.32659H2.66675C2.30008 3.32659 2.00008 3.62659 2.00008 3.99326V5.33326C2.00008 5.69993 1.70008 5.99993 1.33341 5.99993C0.966748 5.99993 0.666748 5.69993 0.666748 5.33326V3.33993C0.666748 2.60659 1.26675 2.00659 2.00008 2.00659ZM9.76008 8.23992L7.90008 10.0999C7.69342 10.3066 7.33342 10.1599 7.33342 9.85992V8.66658H1.33341C0.966748 8.66658 0.666748 8.36658 0.666748 7.99992C0.666748 7.63325 0.966748 7.33325 1.33341 7.33325H7.33342V6.13992C7.33342 5.83992 7.69342 5.69325 7.90008 5.90658L9.76008 7.76659C9.89342 7.89992 9.89342 8.10659 9.76008 8.23992Z"
-            />
-          </g>
-        </svg>
-        <span>Sign&nbsp;out</span>
+        <div className={styles['aside-sign_out-content']}>
+          <img src={IconExit} alt="Выход" />
+          <span>Sign&nbsp;out</span>
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styles from './PlayersEditPage.module.scss';
 import {
   Button,
@@ -21,6 +21,7 @@ import {
   PlayerUpdate
 } from '@/Entities/Players/PlayersSlice';
 import { Link } from 'react-router-dom';
+import { GetPlayers } from '@/Entities/Players/PlayersSlice';
 
 const PlayersEditPage = () => {
   const { id } = useParams();
@@ -28,26 +29,61 @@ const PlayersEditPage = () => {
   const dispatch: AppDispatch = useDispatch();
   const teams = useSelector((state: RootState) => state.teams.data);
   const positions = useSelector((state: RootState) => state.players.positions);
-  const [selectedTeam, setSelectedTeam] = useState<Option | null>(null);
-  const [selectedPosition, setSelectedPosition] = useState<Option | null>(null);
+  const player = useSelector((state: RootState) =>
+    state.players.data.find((player) => player.id == Number(id))
+  );
+  const [selectedTeam, setSelectedTeam] = useState<Option | any>(null);
+  const [selectedPosition, setSelectedPosition] = useState<Option | any>(null);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const {
     register,
     handleSubmit,
     formState: { errors },
     clearErrors,
-    control
+    control,
+    setValue
   } = useForm<PlayerInterface>();
   const isEditMode = !!id;
+
+  useEffect(() => {
+    dispatch(teamsItems({}));
+    dispatch(GetPlayers({}));
+    dispatch(GetPositions());
+    return () => {
+      dispatch(errorClear());
+    };
+  }, [dispatch]);
+
+  // Преобразование данных команд и позиций для селектов
+  const teamOptions = useMemo(
+    () =>
+      teams.map((team) => ({
+        value: team.id || 0,
+        label: team.name
+      })),
+    [teams]
+  );
+
+  const positionOptions = useMemo(
+    () =>
+      positions.map((position, index) => ({
+        value: index,
+        label: position
+      })),
+    [positions]
+  );
+
+  // Обработчик отправки формы
   const onSubmit = useCallback(
     async (data: PlayerInterface) => {
       try {
         let newPlayer;
         const formatterData = {
           ...data,
+          id: Number(id),
           team: selectedTeam?.value || 0,
           position: selectedPosition?.label || '',
-          avatarUrl: ''
+          avatarUrl: player?.avatarUrl || ''
         };
 
         if (selectedImage) {
@@ -65,7 +101,7 @@ const PlayersEditPage = () => {
           );
           formatterData.avatarUrl = response.data;
         }
-        console.log(formatterData);
+
         if (isEditMode) {
           newPlayer = await dispatch(PlayerUpdate(formatterData)).unwrap();
         } else {
@@ -74,6 +110,7 @@ const PlayersEditPage = () => {
         navigate(`/players/${newPlayer.id}`);
       } catch (err) {
         console.error(err);
+        // Здесь можно добавить обработку ошибок
       }
     },
     [
@@ -87,23 +124,42 @@ const PlayersEditPage = () => {
     ]
   );
 
+  // Установка значений полей формы при редактировании игрока
   useEffect(() => {
-    dispatch(teamsItems({}));
-    dispatch(GetPositions());
-    return () => {
-      dispatch(errorClear());
-    };
-  }, [dispatch]);
+    if (player && isEditMode && teams.length > 0 && positions.length > 0) {
+      const selectedTeamData = teams.find((team) => team.id === player.team);
+      setSelectedTeam(
+        selectedTeamData
+          ? { value: selectedTeamData.id || 0, label: selectedTeamData.name }
+          : null
+      );
 
-  const teamOptions = teams.map((team) => ({
-    value: team.id || 0,
-    label: team.name
-  }));
+      const selectedPositionData = positions.find(
+        (position) => position === player.position
+      );
+      setSelectedPosition(
+        selectedPositionData
+          ? {
+              value: positions.indexOf(selectedPositionData),
+              label: selectedPositionData
+            }
+          : null
+      );
+      const dateOnly = player.birthday.slice(0, 10);
+      setValue('name', player.name);
+      setValue('height', player.height);
+      setValue('weight', player.weight);
+      setValue('birthday', dateOnly);
+      setValue('team', selectedTeam ? selectedTeam : { value: 0, label: '' });
+      setValue(
+        'position',
+        selectedPosition ? selectedPosition : { value: 0, label: '' }
+      );
+      setValue('number', player.number);
+    }
+  }, [player, isEditMode, teams, positions, setValue]);
 
-  const positionOptions = positions.map((position, index) => ({
-    value: index,
-    label: position
-  }));
+  console.log('render');
 
   return (
     <main className={styles['playerEdit-wrapper']}>

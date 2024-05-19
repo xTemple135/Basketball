@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense, useCallback, useEffect } from 'react';
 import { TeamsInterface } from '@/Entities/Teams/model';
 import { Await, useLoaderData, useNavigate } from 'react-router-dom';
 import styles from './TeamPage.module.scss';
@@ -11,26 +11,26 @@ import { GetPlayers } from '@/Entities/Players/PlayersSlice';
 
 const TeamPage = () => {
   const navigate = useNavigate();
-  const dispatch:AppDispatch = useDispatch()
+  const dispatch: AppDispatch = useDispatch();
   const data = useLoaderData() as { data: TeamsInterface | undefined };
 
-useEffect(() => {
-  dispatch(GetPlayers({}))
-}, [dispatch])
+  useEffect(() => {
+    dispatch(GetPlayers({}));
+  }, [dispatch]);
 
-  const handleEdit = (id: number | undefined) => {
+  const handleEdit = useCallback((id: number | undefined) => {
     if (id !== undefined) {
       navigate(`/team-edit/${id}`);
     }
-  };
+  }, [navigate]);
 
-  const handleDelete = async (id: number | undefined) => {
+  const handleDelete = useCallback(async (id: number | undefined) => {
     if (id === undefined) {
       return;
     }
     try {
       const token = getToken();
-      await axios.delete(`${PREFIX}/api/Team/Delete`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/api/Team/Delete`, {
         params: {
           id: id
         },
@@ -42,7 +42,7 @@ useEffect(() => {
     } catch {
       throw new Error('ID не найден');
     }
-  };
+  }, [navigate]);
 
   return (
     <Suspense fallback={<Loading />}>

@@ -13,99 +13,59 @@ import { createBrowserRouter } from 'react-router-dom';
 import { AuthPage } from '@/Pages/Auth';
 import { SignIn, SignUp } from '@/Widgets';
 import { PrivateRoute } from './PrivateRoute';
-import { getToken } from '@/Features';
-import axios from 'axios';
-import { PREFIX } from '@/Shared/ui';
-import { TeamsInterface } from '@/Entities/Teams/model';
-import PlayersEdit from '@/Pages/main/pages/Player-Page/PlayerPage';
-import { PlayerInterface } from '@/Entities';
+import { fetchTeamById } from '@/Entities/Teams/model';
+import { fetchPlayerById } from '@/Entities';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/', // Главная страница
     element: (
       <PrivateRoute>
         <Main />
       </PrivateRoute>
     ),
     children: [
-      { path: '/players', element: <PlayersPage /> },
+      { path: '/players', element: <PlayersPage /> }, // Страница списка игроков
       {
         path: '/players/:id',
         element: <PlayerPage />,
-        loader: async ({ params }) => {
-          try {
-            const token = getToken();
-            const { data } = await axios.get<PlayerInterface>(
-              `${PREFIX}/api/Player/Get`,
-              {
-                params: {
-                  id: params.id
-                },
-                headers: {
-                  Authorization: `Bearer ${token}`
-                }
-              }
-            );
-            return data;
-          } catch (error) {
-            throw new Error('Ошибка загрузки игрока');
-          }
-        }
+        loader: fetchPlayerById // Загрузка данных об игроке
       },
-      { path: '/player-edit', element: <PlayersEditPage /> },
+      { path: '/player-edit', element: <PlayersEditPage /> }, // Страница добавления игрока или его редактирование
       { path: '/player-edit/:id', element: <PlayersEditPage /> },
 
-      { path: '/teams', element: <TeamsPage /> },
+      { path: '/teams', element: <TeamsPage /> }, // Страница списка команд
       {
         path: '/teams/:id',
-        element: <TeamPage />,
-        loader: async ({ params }) => {
-          try {
-            const token = getToken();
-            const { data } = await axios.get<TeamsInterface>(
-              `${PREFIX}/api/Team/Get`,
-              {
-                params: {
-                  id: params.id
-                },
-                headers: {
-                  Authorization: `Bearer ${token}`
-                }
-              }
-            );
-            return data;
-          } catch (error) {
-            throw new Error('Ошибка загрузки команды');
-          }
-        }
+        element: <TeamPage />, // Страница отдельной команды
+        loader: fetchTeamById // Загрзка данных о команде
       },
       {
         path: '/team-edit',
-        element: <TeamEditPage />
+        element: <TeamEditPage /> // Страница добавления или редактирования команды
       },
       {
         path: '/team-edit/:id',
-        element: <TeamEditPage />
+        element: <TeamEditPage /> 
       }
     ]
   },
   {
-    path: '/auth',
+    path: '/auth', // Страница авторизации
     element: <AuthPage />,
     children: [
       {
-        path: 'register',
+        path: 'register', // Регистрация
         element: <SignUp />
       },
       {
-        path: 'login',
+        path: 'login', // Авторизация
         element: <SignIn />
       }
     ]
   },
   {
-    path: '*',
+    path: '*', // Неправильный путь
     element: <NotFound />
   }
 ]);

@@ -8,12 +8,13 @@ const CustomLink: React.FC<ILink> = ({
   href,
   isDisabled,
   children,
-  underLine
+  underLine,
+  classname,
 }) => {
   return (
     <Link
       to={href} // принимает в себя имя маршрута страницы
-      className={cn(styles['ui-link'], {
+      className={cn(styles['ui-link'], classname,{
         [styles['disabled']]: isDisabled,
         [styles['underline']]: underLine
       })}

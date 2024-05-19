@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/App/store';
 
 import BurgerIcon from '@/Shared/assets/icons/Burger.svg';
-import { setIsOpen, toggleSideBar } from '../Sidebar';
+import { toggleSideBar } from '../Sidebar';
 
 export interface HeaderProps {
   children: React.ReactNode;
@@ -24,10 +24,10 @@ const Header: React.FC<HeaderProps> = ({ children }) => {
         onClick={handleHamburgerClick}
         className={styles['header_burger']}
       >
-        <img src={BurgerIcon} alt="" />
+        <img src={BurgerIcon} alt="Burger icon" />
       </button>
       <div className={styles['header_logo']}>
-        <Link to={'/'}>
+        <Link to={'/players'}>
           <img src={Logo} alt="Логотип нашего сайта" />
         </Link>
       </div>
@@ -41,4 +41,4 @@ const Header: React.FC<HeaderProps> = ({ children }) => {
   );
 };
 
-export default Header;
+export default React.memo(Header);

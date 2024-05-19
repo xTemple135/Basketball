@@ -18,4 +18,6 @@ export interface ILink {
    * Подчеркнута ли ссылка
    */
   underLine?: boolean;
+
+  classname?: React.ReactNode
 }

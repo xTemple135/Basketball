@@ -10,11 +10,14 @@ const PlayerPage = () => {
   const navigate = useNavigate();
   const data = useLoaderData() as PlayerInterface | undefined;
   const [teamName, setTeamName] = useState<string>('');
+  // Обработчик редактирования игрока
   const handleEdit = (id: number | undefined) => {
     if (id !== undefined) {
       navigate(`/player-edit/${id}`);
     }
   };
+
+  // Получение названия команды игрока
   useEffect(() => {
     if (data?.team) {
       const token = getToken();
@@ -30,6 +33,7 @@ const PlayerPage = () => {
     }
   }, [data]);
 
+  // Обработчик удаления игрока
   const handleDelete = async (id: number | undefined) => {
     if (id == undefined) {
       return;

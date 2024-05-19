@@ -7,7 +7,7 @@ export const store = configureStore({
     auth: userSlice,
     teams: teamsSlice,
     players: playersSlice,
-    side:sideBarSlice,
+    side: sideBarSlice
   }
 });
 

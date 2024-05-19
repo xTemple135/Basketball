@@ -95,7 +95,7 @@ const PlayersPage: React.FC = () => {
   const currentPageItems = filteredPlayers.slice(startIndex, endIndex);
 
   return (
-    <div className={styles['PlayersPage']}>
+    <main className={styles['PlayersPage']}>
       <div className={styles['PlayersPage_input']}>
         <div className={styles['PlayersPage_input_search']}>
           {/* Поле ввода для поиска игроков */}
@@ -163,7 +163,7 @@ const PlayersPage: React.FC = () => {
           />
         </div>
       )}
-    </div>
+    </main>
   );
 };
 

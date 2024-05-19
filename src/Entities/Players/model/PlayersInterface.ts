@@ -1,4 +1,3 @@
-
 export interface PlayerInterface {
   name: string;
   number: number;

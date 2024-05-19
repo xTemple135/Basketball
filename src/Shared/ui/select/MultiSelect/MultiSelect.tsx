@@ -19,8 +19,8 @@ const MultiTeamSelect: React.FC<MultiTeamSelectProps> = ({
           options={options}
           value={value}
           onChange={(selectedOption) => onChange(selectedOption as MultiOption[] | null)} // изменекние текущего значения
-          className={`custom-select-container`} // класс  для контейнера компонента
-          classNamePrefix="custom-select" // для пользовательских стилей
+          className={`multi-select-container`} // класс  для контейнера компонента
+          classNamePrefix="multi-select" // для пользовательских стилей
           menuPlacement={menuPlacement} // расположение списка вверх
           isMulti
         />

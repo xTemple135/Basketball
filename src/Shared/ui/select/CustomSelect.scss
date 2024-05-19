@@ -13,8 +13,10 @@
         box-shadow: none;
       }
     }
+
     &__menu {
       color: $Light-grey;
+      z-index: 5;
     }
     &__option {
       transition: 0.3s;

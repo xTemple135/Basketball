@@ -10,7 +10,7 @@ const Main = () => {
     if (location.pathname === '/') {
       navigate('/players');
     }
-  }, [navigate, location.pathname]);
+  }, []);
 
   return (
     <Layout />

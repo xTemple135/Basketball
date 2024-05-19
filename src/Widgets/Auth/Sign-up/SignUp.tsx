@@ -4,16 +4,12 @@ import styles from './SignUp.module.scss';
 import { Button, Checkbox, CustomLink, Headers, Input } from '@/Shared/ui';
 import SignUpImg from '@/Shared/assets/images/Sign.png';
 import { AuthForm, inputFields } from '@/Features';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/App/store';
 
 const SignUp: React.FC = () => {
   /* Использование хука авторизации */
   const { register, handleSubmit, errors, submit, clearErrors } = AuthForm();
   /* Состояние чекбокса */
   const [agreementAccepted, setAgreementAccepted] = useState<boolean>(false);
-  /* Чтение ошибки авторизации */
-  const authError = useSelector((state: RootState) => state.auth.signUpError);
 
   return (
     <main className={styles['SignUp']}>
@@ -38,7 +34,7 @@ const SignUp: React.FC = () => {
           >
             I accept the agreement
           </Checkbox>
-          <Button type="submit"  disabled={!agreementAccepted}>
+          <Button type="submit" disabled={!agreementAccepted}>
             Sign Up
           </Button>
           <p className={styles['signInLink']}>

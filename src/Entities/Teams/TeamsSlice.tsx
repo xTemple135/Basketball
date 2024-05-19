@@ -1,8 +1,10 @@
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit';
 import { TeamsInterface, TeamsState } from './model';
 import axios from 'axios';
 import { PREFIX } from '@/Shared/ui';
 import { getToken } from '@/Features';
+
+
 
 const token = getToken();
 interface FetchTeamsParams {
@@ -85,6 +87,24 @@ export const TeamsUpdate = createAsyncThunk<
   }
 });
 
+export const GetTeamById = createAsyncThunk<
+  TeamsInterface,
+  number,
+  { rejectValue: string }
+>('teams/fetchTeamById', async (id, thunkAPI) => {
+  try {
+    const response = await axios.get<TeamsInterface>(`${PREFIX}/api/Team/Get`, {
+      params: { id },
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue('Данные не найдены');
+  }
+});
+
 const initialState: TeamsState = {
   data: [],
   count: 0,
@@ -152,8 +172,8 @@ export const teamsSlice = createSlice({
         const teamIndex = state.data.findIndex(
           (team) => team.id === action.payload.id
         );
-        if(teamIndex !== -1) {
-          state.data[teamIndex] = action.payload
+        if (teamIndex !== -1) {
+          state.data[teamIndex] = action.payload;
         }
       }
     );
